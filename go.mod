@@ -1,3 +1,3 @@
-module https://github.com/SkullNBones12/book-base
+module github.com/SkullNBones12/book-base
 
 go 1.22.0
