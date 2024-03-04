@@ -1,4 +1,4 @@
-BINARY_NAME=book-base
+BINARY_NAME=https://github.com/SkullNBones12/book-base
 
 .Phony: help
 
