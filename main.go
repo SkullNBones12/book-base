@@ -1,20 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 )
-
-type Docs struct {
-	Arrays []any `json:"docs"`
-}
-
-type Name struct {
-	Names []any `json:"author_name"`
-}
 
 func main() {
 	response, err := http.Get("https://openlibrary.org/search.json?title=the+lord+of+the+rings")
@@ -32,5 +24,38 @@ func main() {
 		log.Println(err)
 	}
 
-	fmt.Println(string(responseData))
+	data := string(responseData)
+
+	makeNewFile()
+	writeFile(data)
+	parseAuthor()
+
+}
+
+func parseAuthor() {
+	cmd := exec.Command("./run_script")
+	if err := cmd.Run(); err != nil {
+		log.Fatal("Couldn't execute command: ", err)
+	}
+}
+
+func makeNewFile() {
+	file, err := os.Create("json")
+	if err != nil {
+		log.Println("Couldn't create file: ", err)
+	}
+	defer file.Close()
+
+}
+
+func writeFile(x string) {
+	file, err := os.OpenFile("json", os.O_WRONLY, 0644)
+	if err != nil {
+		log.Println("Couldn't open file: ", err)
+	}
+	defer file.Close()
+
+	if _, err = file.WriteString(x); err != nil {
+		log.Println("Couldn't write to file: ", err)
+	}
 }
