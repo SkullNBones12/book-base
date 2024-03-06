@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -A1 author_name json | grep -m1 -v author_name > newJson

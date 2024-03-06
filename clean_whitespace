@@ -1,0 +1,3 @@
+#!/bin/bash
+
+perl -i -ne 's/^\s+//;print' newJson

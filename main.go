@@ -29,13 +29,21 @@ func main() {
 	makeNewFile()
 	writeFile(data)
 	parseAuthor()
+	cleanDoc()
 
 }
 
 func parseAuthor() {
 	cmd := exec.Command("./run_script")
 	if err := cmd.Run(); err != nil {
-		log.Fatal("Couldn't execute command: ", err)
+		log.Println("Couldn't execute command: ", err)
+	}
+}
+
+func cleanDoc() {
+	cmd := exec.Command("./clean_whitespace")
+	if err := cmd.Run(); err != nil {
+		log.Println("Couldn't clean whitespace: ", err)
 	}
 }
 
